@@ -21,23 +21,18 @@ function Registration() {
     e.preventDefault();
 
     try {
-      // Send registration data to your server
       const response = await axios.post('/register', formData);
       
-      // Extract credentials from the response
       const { clientID, clientSecret } = response.data;
 
-      // Use credentials to authenticate with the railway server
       const authResponse = await axios.post('http://20.244.56.144/train/authenticate', {
         clientID,
         clientSecret,
       });
 
-      // Set the authentication token
       setAuthToken(authResponse.data.authToken);
       setRegistrationSuccess(true);
 
-      // Clear registration form
       setFormData({
         ownerName: '',
         rollNo: '',
@@ -45,7 +40,6 @@ function Registration() {
         accessCode: '',
       });
     } catch (error) {
-      // Handle registration or authentication errors
       console.error(error);
     }
   };
